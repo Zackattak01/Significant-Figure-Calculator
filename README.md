@@ -2,7 +2,7 @@
  A small library for calculating expressions with significant figure
 
 # Usage
-A `SigFigCalculator` object must be created.  Then with this object call `Evaulate(string expression)` on it passing the expression.  You will be returned a `SigFigCalculatorResult` which will have a value indicating Success, the unrounded and rounded values, and if applicable, an error message.
+A `SigFigCalculator` object must be created.  Then with this object call `Evaluate(string expression)` on it passing the expression.  You will be returned a `SigFigCalculatorResult` which will have a value indicating Success, the unrounded and rounded values, and if applicable, an error message.
 
 Due to how to the logic is built when mixing addition/subtraction and multiplication/division the number with the lowest number of sig figs will be used even if that number is used in addtion or subtraction.
 
