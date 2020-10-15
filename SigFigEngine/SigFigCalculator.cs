@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using MathEngine;
+using MathEngine.SigFig.Extensions;
 
 namespace MathEngine.SigFig
 {
@@ -20,7 +20,6 @@ namespace MathEngine.SigFig
 			}
 			catch (SyntaxException e)
 			{
-				Console.WriteLine("exception caught");
 				return new SigFigCalculatorResult(false, "", "", e.Message);
 			}
 
@@ -68,36 +67,19 @@ namespace MathEngine.SigFig
 
 			if (resultStrSigFigs == lowestNumOfSigFigs)
 			{
-				//Console.WriteLine("1 needs it");
 				resultRounded = result;
 			}
 			else if (digitsBefore - lowestNumOfSigFigs >= 0)
 			{
-				//Console.WriteLine($"2 needs it: {digitsBefore} - {lowestNumOfSigFigs}");
 				resultRounded = result.RoundTo(Math.Pow(10, digitsBefore - lowestNumOfSigFigs));
 			}
 			else if (digitsAfter - lowestNumOfSigFigs >= 0)
 			{
-				//Console.WriteLine("3 needs it");
-				//Console.WriteLine(resultStrSigFigs);
-				//Console.WriteLine(digitsAfter);
-				//Console.WriteLine("rounding to " + (lowestNumOfSigFigs - digitsBefore));
-
-				//int toRoundTo = ;
 				resultRounded = Math.Round(result, lowestNumOfSigFigs - digitsBefore);
-				//Console.WriteLine(result);
-				//Console.WriteLine(resultRounded);
-
-				//keep rounding to get rid of base 2 to base 10 idiot floating point I hate everything
-
-
-
-
 			}
 			else
 			{
 				resultRounded = result;
-
 			}
 
 			return resultRounded;

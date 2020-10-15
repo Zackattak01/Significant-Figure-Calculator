@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 
-namespace MathEngine.SigFig
+namespace MathEngine.SigFig.Extensions
 {
 	public static class Extensions
 	{
@@ -111,13 +111,10 @@ namespace MathEngine.SigFig
 
 		public static double RoundTo(this double num, double place)
 		{
-				//Console.WriteLine("Dividing: " + num/place);
-				//Console.WriteLine("Place is" + place);
 				return Math.Round(num / place, MidpointRounding.AwayFromZero) * place;
-			
-			
 		}
 
+		//This method will keep adding sig figs until the TOTAL amount of sig figs in the nubmer equals the number passed in (sigFigs)
 		public static string AddExtraSigFigs(this string num, int sigFigs)
 		{
 			if (sigFigs == num.GetSigFigAmount())
