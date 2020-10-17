@@ -147,7 +147,6 @@ namespace MathEngine
 				return node;
 			}
 
-			//do something to indicate error in the future
 			throw new SyntaxException($"Unexpected Token: {tokenizer.CurrentToken}");
 		}
 	}

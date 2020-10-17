@@ -5,6 +5,11 @@ using System.Linq;
 
 namespace MathEngine.SigFig.Extensions
 {
+	public enum ExtraSigFigsMode
+	{
+		AddSub,
+		MultDiv
+	}
 	public static class Extensions
 	{
 		public static int GetSigFigAmount(this string str)
@@ -115,20 +120,43 @@ namespace MathEngine.SigFig.Extensions
 		}
 
 		//This method will keep adding sig figs until the TOTAL amount of sig figs in the nubmer equals the number passed in (sigFigs)
-		public static string AddExtraSigFigs(this string num, int sigFigs)
+		public static string AddExtraSigFigs(this string num, int sigFigs, ExtraSigFigsMode mode = ExtraSigFigsMode.MultDiv)
 		{
-			if (sigFigs == num.GetSigFigAmount())
-				return num;
-
-			if (!num.Contains('.'))
-				num += '.';
-
-			while(num.Length - 1 < sigFigs)
+			if(mode == ExtraSigFigsMode.MultDiv)
 			{
-				num += '0';
+				if (sigFigs == num.GetSigFigAmount())
+					return num;
+
+				if (!num.Contains('.'))
+					num += '.';
+
+				while (num.Length - 1 < sigFigs)
+				{
+					num += '0';
+				}
 			}
+			else
+			{
+				if (sigFigs == num.GetSigFigAmountAfterDecimal())
+					return num;
+
+				if (!num.Contains('.'))
+					num += '.';
+
+				while(num.GetSigFigAmountAfterDecimal() < sigFigs)
+				{
+					num += '0';
+				}
+			}
+			
+
+			
+
+			
 
 			return num;
 		}
+
+
 	}
 }

@@ -6,7 +6,7 @@ namespace MathEngine
 {
 	public interface ITokenizer
 	{
-		Token CurrentToken { get;}
+		int CurrentToken { get;}
 
 		double CurrentNumber { get; }
 

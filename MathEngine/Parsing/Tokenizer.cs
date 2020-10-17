@@ -21,7 +21,7 @@ namespace MathEngine
         }
 
 
-        public Token CurrentToken { get; protected set; }
+        public int CurrentToken { get; protected set; }
 
 
         public double CurrentNumber { get; protected set; }

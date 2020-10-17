@@ -47,7 +47,8 @@ namespace MathEngine.SigFig
 				int lowestNumOfSigFigs = tokenizer.NumbersParsed.OrderBy(x => x.GetSigFigAmountAfterDecimal()).First().GetSigFigAmountAfterDecimal();
 
 				resultRounded = RoundNumberAddition(result, lowestNumOfSigFigs);
-				return new SigFigCalculatorResult(true, result.ToString(), resultRounded.ToString());
+				string resultRoundedStr = resultRounded.ToString().AddExtraSigFigs(lowestNumOfSigFigs, ExtraSigFigsMode.AddSub);
+				return new SigFigCalculatorResult(true, result.ToString(), resultRoundedStr);
 			}
 			
 
