@@ -4,26 +4,26 @@ using System.Text;
 
 namespace MathEngine
 {
-	public class Parser
+	public class Parser : IParser
 	{
 		public Parser(ITokenizer tokenizer)
 		{
 			this.tokenizer = tokenizer;
 		}
 
-		private ITokenizer tokenizer;
+		protected ITokenizer tokenizer;
 
-		public Node ParseExpression()
+		public virtual Node ParseExpression()
 		{
 			Node expr = ParseAddSubtract();
 
 			if (tokenizer.CurrentToken != Token.EOE)
-				throw new SyntaxException("Unexpected characters at the end of the expression."); //do something to indicate an error here in the future
+				throw new SyntaxException("Unexpected characters at the end of the expression."); 
 
 			return expr;
 		}
 
-		Node ParseAddSubtract()
+		protected virtual Node ParseAddSubtract()
 		{
 			Node lhs = ParseMultiplyDivide();
 
@@ -50,7 +50,7 @@ namespace MathEngine
 			}
 		}
 
-		Node ParseMultiplyDivide()
+		protected virtual Node ParseMultiplyDivide()
 		{
 			Node lhs = ParseUnary();
 
@@ -77,7 +77,7 @@ namespace MathEngine
 			}
 		}
 
-		Node ParseUnary()
+		protected virtual Node ParseUnary()
 		{
 			while (true)
 			{
@@ -102,7 +102,7 @@ namespace MathEngine
 			}
 		}
 
-		Node ParsePower()
+		protected virtual Node ParsePower()
 		{
 			Node lhs = ParseLeaf();
 
@@ -124,7 +124,7 @@ namespace MathEngine
 
 		}
 
-		Node ParseLeaf()
+		protected virtual Node ParseLeaf()
 		{
 			if(tokenizer.CurrentToken == Token.Number)
 			{
