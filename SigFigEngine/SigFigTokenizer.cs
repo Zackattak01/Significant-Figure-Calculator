@@ -7,16 +7,21 @@ namespace MathEngine.SigFig
 {
 	public class SigFigTokenizer : Tokenizer, ITokenizer
 	{
-		public SigFigTokenizer(string expression)
-			:base(expression)
+		public SigFigTokenizer(string expression, char escapeChar = 'a')
+			:base()
 		{
-            
-			
+
+            EscapeChar = escapeChar;
+            NumbersParsed = new List<string>();
+            Initialize(expression);
         }
 
-        public List<string> NumbersParsed { get; protected set; } = new List<string>();
+        public char EscapeChar { get; }
 
-        public override void NextToken()
+        public List<string> NumbersParsed { get; protected set; }
+
+
+		public override void NextToken()
 		{
             if (ParseSpecialChar())
                 return;
@@ -27,10 +32,10 @@ namespace MathEngine.SigFig
 
         protected override bool ParseNumber()
         {
-            if (char.IsDigit(currentChar) || currentChar == '.' || currentChar == 'a')
+            if (char.IsDigit(currentChar) || currentChar == '.' || currentChar == EscapeChar)
             {
                 bool hasDecimalPoint = false;
-                bool isEscaped = currentChar == 'a';
+                bool isEscaped = currentChar == EscapeChar;
 
                 if (isEscaped)
                 {

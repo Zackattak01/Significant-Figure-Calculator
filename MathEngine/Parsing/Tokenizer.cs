@@ -10,16 +10,15 @@ namespace MathEngine
     {
         public Tokenizer(string expression)
         {
-            chars = expression.ToCharArray();
-
-
-            NextChar();
-            NextToken();
-
-
-
+            Initialize(expression);
         }
 
+        //this constructor is here to allow a inheriting class to defer initialization until it has had a chance to init its local vars
+        //the inheriting class will be responsible for initing the local vars here however which is why the Initalize method exists to reduce code dupe
+        protected Tokenizer()
+		{
+
+		}
 
         public int CurrentToken { get; protected set; }
 
@@ -27,9 +26,16 @@ namespace MathEngine
         public double CurrentNumber { get; protected set; }
 
 
-        private int currentIndex = -1;
-        private char[] chars;
+        protected int currentIndex = -1;
+        protected char[] chars;
         protected char currentChar;
+
+        protected virtual void Initialize(string expression)
+		{
+            chars = expression.ToCharArray();
+            NextChar();
+            NextToken();
+        }
 
         protected void NextChar()
         {
